@@ -12,10 +12,11 @@ const CreateProduct = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [oldPrice, setOldPrice] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [shipping, setShipping] = useState("");
+  const [discount, setDiscount] = useState("");
   const [photo, setPhoto] = useState("");
 
   //get all category
@@ -42,10 +43,12 @@ const CreateProduct = () => {
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
+      productData.append("oldPrice", oldPrice);
       productData.append("price", price);
       productData.append("quantity", quantity);
       productData.append("photo", photo);
       productData.append("category", category);
+      productData.append("discount", discount);
       const { data } = axios.post(
         "/api/v1/product/create-product",
         productData
@@ -134,6 +137,15 @@ const CreateProduct = () => {
               <div className="mb-3">
                 <input
                   type="number"
+                  value={oldPrice}
+                  placeholder="write an Old Price"
+                  className="form-control"
+                  onChange={(e) => setOldPrice(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="number"
                   value={price}
                   placeholder="write a Price"
                   className="form-control"
@@ -150,19 +162,13 @@ const CreateProduct = () => {
                 />
               </div>
               <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Shipping "
-                  size="large"
-                  showSearch
-                  className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
-                >
-                  <Option value="0">No</Option>
-                  <Option value="1">Yes</Option>
-                </Select>
+                <input
+                  type="number"
+                  value={discount}
+                  placeholder="Write a Discount "
+                  className="form-control"
+                  onChange={(e) => setDiscount(e.target.value)}
+                />
               </div>
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleCreate}>

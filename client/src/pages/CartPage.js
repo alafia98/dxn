@@ -82,7 +82,7 @@ const CartPage = () => {
   const handleWhatsAppPayment = () => {
     const totalPriceFormatted = totalPrice();
     const message = `Hello, I would like to make a payment of ${totalPriceFormatted} via WhatsApp. Please provide me with the payment details.`;
-    const whatsappLink = `https://wa.me/<phone_number>?text=${encodeURIComponent(
+    const whatsappLink = `https://wa.me/message/GWQNEOHAH754H1?text=${encodeURIComponent(
       message
     )}`;
     window.open(whatsappLink);
@@ -184,12 +184,7 @@ const CartPage = () => {
                 ) : (
                   <>
                     <DropIn
-                      options={{
-                        authorization: clientToken,
-                        paypal: {
-                          flow: "vault",
-                        },
-                      }}
+                      options={{authorization: clientToken}}
                       onInstance={(instance) => setInstance(instance)}
                     />
 

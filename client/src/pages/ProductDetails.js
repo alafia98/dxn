@@ -3,12 +3,16 @@ import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProductDetailsStyles.css";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [cart, setCart] = useCart();
+
 
   //initalp details
   useEffect(() => {
@@ -54,15 +58,35 @@ const ProductDetails = () => {
           <hr />
           <h6>Name : {product.name}</h6>
           <h6>Description : {product.description}</h6>
-          <h6>
-            Price :
+          <h6 className="old">
+            Old Price : 
+            {product?.oldPrice?.toLocaleString("fr-FR", {
+              style: "currency",
+              currency: "MAD",
+            })}
+          </h6>
+          <h6 className="price">
+            New Price : 
             {product?.price?.toLocaleString("fr-FR", {
               style: "currency",
               currency: "MAD",
             })}
           </h6>
+          <h6 className="dis">Discount : -{product.discount}%</h6>
           <h6>Category : {product?.category?.name}</h6>
-          <button class="btn btn-secondary ms-1">ADD TO CART</button>
+          <button
+            className="btn btn-secondary ms-1"
+            onClick={() => {
+            setCart([...cart, product]);
+            localStorage.setItem(
+              "cart",
+              JSON.stringify([...cart, product])
+            );
+            toast.success("Item Added to cart");
+            }}
+          >
+            ADD TO CART
+          </button>
         </div>
       </div>
       <hr />
@@ -79,17 +103,28 @@ const ProductDetails = () => {
                 className="card-img-top"
                 alt={p.name}
               />
+              <div className="discount">
+                <span className="top-left">-{p.discount}%</span>
+              </div>
               <div className="card-body">
                 <div className="card-name-price">
                   <h5 className="card-title">{p.name}</h5>
-                  <h5 className="card-title card-price">
-                    {p.price.toLocaleString("fr-FR", {
-                      style: "currency",
-                      currency: "MAD",
-                    })}
-                  </h5>
+                  <div>
+                    <h5 className="card-title card-price old">
+                      {p.oldPrice.toLocaleString("fr-FR", {
+                        style: "currency",
+                        currency: "MAD",
+                      })}
+                    </h5>
+                    <h5 className="card-title card-price">
+                      {p.price.toLocaleString("fr-FR", {
+                        style: "currency",
+                        currency: "MAD",
+                      })}
+                    </h5>
+                  </div>
                 </div>
-                <p className="card-text ">
+                <p className="card-text">
                   {p.description.substring(0, 60)}...
                 </p>
                 <div className="card-name-price">

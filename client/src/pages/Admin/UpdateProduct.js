@@ -13,10 +13,11 @@ const UpdateProduct = () => {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [oldPrice, setOldPrice] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [shipping, setShipping] = useState("");
+  const [discount, setDiscount] = useState("");
   const [photo, setPhoto] = useState("");
   const [id, setId] = useState("");
 
@@ -29,10 +30,10 @@ const UpdateProduct = () => {
       setName(data.product.name);
       setId(data.product._id);
       setDescription(data.product.description);
-      setPrice(data.product.price);
+      setOldPrice(data.product.pldPrice);
       setPrice(data.product.price);
       setQuantity(data.product.quantity);
-      setShipping(data.product.shipping);
+      setDiscount(data.product.discount);
       setCategory(data.product.category._id);
     } catch (error) {
       console.log(error);
@@ -66,8 +67,10 @@ const UpdateProduct = () => {
       const productData = new FormData();
       productData.append("name", name);
       productData.append("description", description);
+      productData.append("oldPrice", oldPrice);
       productData.append("price", price);
       productData.append("quantity", quantity);
+      productData.append("discount", discount);
       photo && productData.append("photo", photo);
       productData.append("category", category);
       const { data } = axios.put(
@@ -183,6 +186,15 @@ const UpdateProduct = () => {
               <div className="mb-3">
                 <input
                   type="number"
+                  value={oldPrice}
+                  placeholder="write an Old Price"
+                  className="form-control"
+                  onChange={(e) => setOldPrice(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="number"
                   value={price}
                   placeholder="write a Price"
                   className="form-control"
@@ -199,20 +211,13 @@ const UpdateProduct = () => {
                 />
               </div>
               <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Shipping "
-                  size="large"
-                  showSearch
-                  className="form-select mb-3"
-                  onChange={(value) => {
-                    setShipping(value);
-                  }}
-                  value={shipping ? "yes" : "No"}
-                >
-                  <Option value="0">No</Option>
-                  <Option value="1">Yes</Option>
-                </Select>
+                <input
+                  type="number"
+                  value={discount}
+                  placeholder="write a Discount"
+                  className="form-control"
+                  onChange={(e) => setDiscount(e.target.value)}
+                />
               </div>
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>

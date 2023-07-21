@@ -1,5 +1,27 @@
-.banner-img {
+#slider {
+  overflow: hidden;
+}
+#slider figure {
+  position: relative;
+  width: 500%;
   margin-top: 60px;
+  left: 0;
+  animation: 20s slider infinite;
+}
+#slider figure .banner-img {
+  width: 20%;
+  float: left;
+}
+@keyframes slider {
+  0% {left: 0;}
+  20% {left: 0;}
+  25% {left: -100%;}
+  45% {left: -100%;}
+  50% {left: -200%;}
+  70% {left: -200%;}
+  75% {left: -300%;}
+  95% {left: -300%;}
+  100%{left: -400%;}
 }
 
 .home-page h1 {
@@ -25,6 +47,10 @@
   color: green;
   font-weight: bold;
 }
+.home-page .old {
+  color: red;
+  text-decoration: line-through;
+}
 .home-page button {
   border-radius: 0;
   width: 100%;
@@ -32,6 +58,22 @@
   border-bottom-right-radius: 5px;
   font-size: 14px;
   font-weight: bold;
+}
+
+.discount {
+  position: relative;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.discount .top-left {
+  position: absolute;
+  bottom: 260px;
+  left: 0px;
+  background-color: green;
+  border-radius: 0 50px 50px 0;
+  padding: 3%;
 }
 
 .home-page .card-text {

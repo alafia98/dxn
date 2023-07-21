@@ -109,12 +109,15 @@ const HomePage = () => {
   return (
     <Layout title={"ALl Products - Best offers "}>
       {/* banner image */}
-      <img
-        src="/images/R.jpg"
-        className="banner-img"
-        alt="bannerimage"
-        width={"100%"}
-      />
+      <div id="slider">
+        <figure>
+          <img src="/images/R.jpg" className="banner-img" alt="bannerimage"/>
+          <img src="/images/OIP.jpg" className="banner-img" alt="bannerimage"/>
+          <img src="/images/R.jpg" className="banner-img" alt="bannerimage"/>
+          <img src="/images/OIP.jpg" className="banner-img" alt="bannerimage"/>
+          <img src="/images/R.jpg" className="banner-img" alt="bannerimage"/>
+        </figure>
+      </div>
       {/* banner image */}
       <div className="container-fluid row mt-3 home-page">
         <div className="col-md-3 filters">
@@ -159,15 +162,27 @@ const HomePage = () => {
                   className="card-img-top"
                   alt={p.name}
                 />
+                <div className="discount">
+                  <span className="top-left">-{p.discount}%</span>
+                </div>
                 <div className="card-body">
                   <div className="card-name-price">
                     <h5 className="card-title">{p.name}</h5>
-                    <h5 className="card-title card-price">
-                      {p.price.toLocaleString("fr-FR", {
-                        style: "currency",
-                        currency: "MAD",
-                      })}
-                    </h5>
+                    <div>
+                      <h5 className="card-title card-price old">
+                        {p.oldPrice.toLocaleString("fr-FR", {
+                          style: "currency",
+                          currency: "MAD",
+                        })}
+                      </h5>
+                      <h5 className="card-title card-price">
+                        {p.price.toLocaleString("fr-FR", {
+                          style: "currency",
+                          currency: "MAD",
+                        })}
+                      </h5>
+                    </div>
+                    
                   </div>
                   <p className="card-text ">
                     {p.description.substring(0, 60)}...
